@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 1px;
+}
+
+.rowWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 10px;
+  color: rgb(19, 18, 18);
+
+  &:nth-child(2) {
+    flex-grow: 1;
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+}

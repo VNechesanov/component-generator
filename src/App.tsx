@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.scss";
+import Settings from "./components/Settings/Settings";
+import Canvas from "./components/Canvas/Canvas";
+
+class App extends React.Component {
+  state = {
+    height: "",
+    width: "",
+  };
+
+  handleChange = (e: any, isHeight: boolean = false) => {
+    if (isHeight) {
+      this.setState({ height: e.target.value });
+      return;
+    }
+    this.setState({ width: e.target.value });
+  };
+
+  render() {
+    return (
+      <>
+        <Settings handleChange={this.handleChange} />
+        <div className="canvasStyles">
+          <Canvas height={this.state.height} width={this.state.width} />
+        </div>
+      </>
+    );
+  }
 }
 
 export default App;
