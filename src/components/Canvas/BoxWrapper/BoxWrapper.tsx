@@ -21,13 +21,14 @@ class BoxWrapper extends React.Component<Props> {
     const { width, height, color } = this.props;
     return (
       <Rnd
+        class="Box"
         default={{
           x: this.state.x,
           y: this.state.y,
           width: this.state.width,
           height: this.state.height,
         }}
-        minWidth={51}
+        minWidth={68}
         minHeight={16}
         bounds="parent"
         onDrag={(e: any, { x, y }: any) => {

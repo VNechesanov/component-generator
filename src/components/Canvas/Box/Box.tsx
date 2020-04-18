@@ -1,9 +1,9 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 
 import "./Box.scss";
 import Tooltip from "./Tooltip/Tooltip";
 import BoxWrapper from "../BoxWrapper/BoxWrapper";
-import { Container } from "../Canvas";
+import Button from "../Button/Button";
 
 type BoxProps = {
   x: number;
@@ -83,78 +83,49 @@ class Box extends React.Component<BoxProps> {
     const xDownRight = x + boxWidth;
     const yDownRight = y + boxHeight;
 
+    const buttonProps: CSSProperties = {
+      width: 0,
+      height: "14px",
+      border: "0.5px solid #e4dfdf",
+      borderRadius: "1px",
+      display: "flex",
+      justifyContent: "center",
+      fontSize: 9,
+      marginRight: 2,
+    };
+
     return (
       <>
         <div
           style={{
+            backgroundColor: color,
             margin: 0,
             height: "100%",
             padding: 0,
-            backgroundColor: color,
           }}
+          className="wrapper removable"
         >
-          <div className="wrapper">
-            <button
-              style={{
-                width: 0,
-                height: "14px",
-                border: "0.5px solid #e4dfdf",
-                borderRadius: "1px",
-                backgroundColor: "#fff",
-                display: "flex",
-                justifyContent: "center",
-                fontSize: 9,
-                marginRight: 2,
-              }}
-              onClick={() => this.setState({ isClick: !this.state.isClick })}
-            >
-              ?
-            </button>
-            <button
-              style={{
-                width: 0,
-                height: "14px",
-                border: "0.5px solid #e4dfdf",
-                borderRadius: "1px",
-                backgroundColor: "#42bfd5",
-                display: "flex",
-                justifyContent: "center",
-                fontSize: 9,
-                marginRight: 2,
-              }}
-              onClick={() => this.buttonPressed(Container.globalContainer)}
-            />
-            <button
-              style={{
-                width: 0,
-                height: "14px",
-                border: "0.5px solid #e4dfdf",
-                borderRadius: "1px",
-                backgroundColor: "#42d5bc",
-                display: "flex",
-                justifyContent: "center",
-                fontSize: 9,
-                marginRight: 2,
-              }}
-              onClick={() => this.buttonPressed(Container.localContainer)}
-            />
-            <button
-              style={{
-                width: 0,
-                height: "14px",
-                border: "0.5px solid #e4dfdf",
-                borderRadius: "1px",
-                backgroundColor: "#4287d5",
-                display: "flex",
-                justifyContent: "center",
-                fontSize: 9,
-                marginRight: 2,
-              }}
-              onClick={() => this.buttonPressed(Container.unit)}
-            />
-          </div>
-          {this.state.arr}
+          <button
+            style={{
+              backgroundColor: "#fff",
+              ...buttonProps,
+            }}
+            onClick={() => this.setState({ isClick: !this.state.isClick })}
+          >
+            ?
+          </button>
+          <Button
+            width={[0, 0, 0]}
+            height={[14, 14, 14]}
+            border="0.5px solid #e4dfdf"
+            borderRadius={1}
+            fontSize={9}
+            marginRight={[2, 2, 2]}
+            backgroundColor={["#42bfd5", "#42d5bc", "#4287d5"]}
+            buttonPressed={this.buttonPressed}
+          />
         </div>
+        {this.state.arr}
         {this.state.isClick && (
           <Tooltip
             leftDistance={xUpperLeft}

@@ -4,6 +4,7 @@ import "./Settings.scss";
 
 type Props = {
   handleChange: Function;
+  showCanvas: Function;
 };
 
 class Settings extends React.Component<Props> {
@@ -25,6 +26,18 @@ class Settings extends React.Component<Props> {
               onChange={(e) => this.props.handleChange(e, false)}
             />
           </div>
+          <button
+            style={{
+              width: "100%",
+              backgroundColor: "#4287d5",
+              border: "none",
+              color: "#fff",
+              borderRadius: "2px",
+            }}
+            onClick={() => this.props.showCanvas(true)}
+          >
+            show canvas
+          </button>
         </div>
       </div>
     );

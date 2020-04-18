@@ -8,6 +8,7 @@ class App extends React.Component {
   state = {
     height: "",
     width: "",
+    isShowCanvas: false,
   };
 
   handleChange = (e: any, isHeight: boolean = false) => {
@@ -18,12 +19,23 @@ class App extends React.Component {
     this.setState({ width: e.target.value });
   };
 
+  showCanvas = (isShow: boolean) => {
+    this.setState({ isShowCanvas: isShow });
+  };
+
   render() {
     return (
       <>
-        <Settings handleChange={this.handleChange} />
+        <Settings
+          handleChange={this.handleChange}
+          showCanvas={this.showCanvas}
+        />
         <div className="canvasStyles">
-          <Canvas height={this.state.height} width={this.state.width} />
+          <Canvas
+            height={this.state.height}
+            width={this.state.width}
+            isShow={this.state.isShowCanvas}
+          />
         </div>
       </>
     );
