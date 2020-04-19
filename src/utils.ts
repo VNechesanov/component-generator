@@ -3,7 +3,7 @@ type HTML_Map = {
   val: string;
 };
 
-type Clear_DOM_Props = {
+export type Clear_DOM_Props = {
   clearDom: HTMLElement | null;
   stylesProps: HTML_Map[];
 };

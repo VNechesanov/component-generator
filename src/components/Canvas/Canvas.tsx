@@ -3,19 +3,13 @@ import ReactDOM from "react-dom";
 
 import "./Canvas.scss";
 import BoxWrapper from "./BoxWrapper/BoxWrapper";
-import { getClearDomWithoutStyles } from "../../utils";
+import { getClearDomWithoutStyles, Clear_DOM_Props } from "../../utils";
 import Button from "./Button/Button";
 
 type Props = {
   height: string;
   width: string;
   isShow: boolean;
-};
-
-export const Container = {
-  globalContainer: 0,
-  localContainer: 1,
-  unit: 2,
 };
 
 type Res = {
@@ -28,13 +22,23 @@ class Canvas extends React.Component<Props> {
     arr: [] as JSX.Element[],
   };
 
+  clearDom: Clear_DOM_Props = {
+    clearDom: null,
+    stylesProps: [
+      {
+        key: "",
+        val: "",
+      },
+    ],
+  };
+
   printRoot = () => {
     const node = ReactDOM.findDOMNode(this);
-    const clearDom = getClearDomWithoutStyles(
+    this.clearDom = getClearDomWithoutStyles(
       new DOMParser().parseFromString((node as Element).innerHTML, "text/html")
     );
-    console.info(clearDom.clearDom);
-    console.info(clearDom.stylesProps);
+    console.info(this.clearDom.clearDom);
+    console.info(this.clearDom.stylesProps);
   };
 
   eventHandler = (e: any, val: number) => {
@@ -91,7 +95,8 @@ class Canvas extends React.Component<Props> {
                 backgroundColor={["#42bfd5", "#42d5bc", "#4287d5"]}
                 eventHandler={this.eventHandler}
                 color="#fff"
-                buttonText="add container"
+                buttonText={["add container", "add container", "add container"]}
+                bottonNumber={3}
               />
             </div>
 
