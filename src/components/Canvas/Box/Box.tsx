@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 
 import "./Box.scss";
 import Tooltip from "./Tooltip/Tooltip";
@@ -81,22 +81,11 @@ class Box extends React.Component<BoxProps> {
     const xUpperLeft = x;
     const yUpperLeft = y;
     const xUpperRight = x + boxWidth;
-    const yUpperRight = y;
-    const xDownLeft = x;
+    // const yUpperRight = y;
+    // const xDownLeft = x;
     const yDownLeft = y + boxHeight;
-    const xDownRight = x + boxWidth;
-    const yDownRight = y + boxHeight;
-
-    const buttonProps: CSSProperties = {
-      width: 0,
-      height: "14px",
-      border: "0.5px solid #e4dfdf",
-      borderRadius: "1px",
-      display: "flex",
-      justifyContent: "center",
-      fontSize: 9,
-      marginRight: 2,
-    };
+    // const xDownRight = x + boxWidth;
+    // const yDownRight = y + boxHeight;
 
     return (
       <>
