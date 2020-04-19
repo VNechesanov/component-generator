@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Container } from "../Canvas";
-
 type ButtonProps = {
   width?: number[];
   height?: number[];
@@ -12,8 +10,9 @@ type ButtonProps = {
   backgroundColor: string[];
   eventHandler?: Function;
   buttonPressed?: Function;
-  buttonText?: string;
+  buttonText?: string[];
   color?: string;
+  bottonNumber: number;
 };
 
 class Button extends React.Component<ButtonProps> {
@@ -28,78 +27,41 @@ class Button extends React.Component<ButtonProps> {
       backgroundColor,
       buttonText,
       color,
+      bottonNumber,
     } = this.props;
 
-    return (
-      <>
-        <button
-          style={{
-            width: `${width && width[0]}px`,
-            height: `${height && height[0]}px`,
-            border: border,
-            borderRadius: `${borderRadius && borderRadius}px`,
-            fontSize: fontSize && fontSize,
-            marginRight: marginRight && marginRight[0],
-            backgroundColor: backgroundColor[0],
-            display: "flex",
-            justifyContent: "center",
-            color: color && color,
-          }}
-          onClick={(e) =>
-            this.props.buttonPressed
-              ? this.props.buttonPressed(Container.globalContainer)
-              : this.props.eventHandler &&
-                this.props.eventHandler(e, Container.globalContainer)
-          }
-        >
-          {buttonText && buttonText}
-        </button>
-        <button
-          style={{
-            width: `${width && width[1]}px`,
-            height: `${height && height[1]}px`,
-            border: border,
-            borderRadius: `${borderRadius && borderRadius}px`,
-            fontSize: fontSize && fontSize,
-            marginRight: marginRight && marginRight[1],
-            backgroundColor: backgroundColor[1],
-            display: "flex",
-            justifyContent: "center",
-            color: color && color,
-          }}
-          onClick={(e) =>
-            this.props.buttonPressed
-              ? this.props.buttonPressed(Container.localContainer)
-              : this.props.eventHandler &&
-                this.props.eventHandler(e, Container.localContainer)
-          }
-        >
-          {buttonText && buttonText}
-        </button>
-        <button
-          style={{
-            width: `${width && width[2]}px`,
-            height: `${height && height[2]}px`,
-            border: border,
-            borderRadius: `${borderRadius && borderRadius}px`,
-            fontSize: fontSize && fontSize,
-            marginRight: marginRight && marginRight[2],
-            backgroundColor: backgroundColor[2],
-            display: "flex",
-            justifyContent: "center",
-            color: color && color,
-          }}
-          onClick={(e) =>
-            this.props.buttonPressed
-              ? this.props.buttonPressed(Container.unit)
-              : this.props.eventHandler &&
-                this.props.eventHandler(e, Container.unit)
-          }
-        >
-          {buttonText && buttonText}
-        </button>
-      </>
-    );
+    const renderButton = (buttonNumber: number): JSX.Element[] => {
+      const buttonArray: JSX.Element[] = [];
+      for (let i = 0; i < buttonNumber; i++) {
+        buttonArray.push(
+          <button
+            style={{
+              width: `${width && width[i]}px`,
+              height: `${height && height[i]}px`,
+              border: border,
+              borderRadius: `${borderRadius && borderRadius}px`,
+              fontSize: fontSize && fontSize,
+              marginRight: marginRight && marginRight[i],
+              backgroundColor: backgroundColor[i],
+              display: "flex",
+              justifyContent: "center",
+              color: color && color,
+            }}
+            onClick={(e) =>
+              this.props.buttonPressed
+                ? this.props.buttonPressed(i)
+                : this.props.eventHandler && this.props.eventHandler(e, i)
+            }
+          >
+            {buttonText && buttonText[i] !== "" && buttonText[i]}
+          </button>
+        );
+      }
+
+      return buttonArray;
+    };
+
+    return renderButton(bottonNumber);
   }
 }
 

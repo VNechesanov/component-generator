@@ -22,7 +22,7 @@ class Box extends React.Component<BoxProps> {
   };
 
   buttonPressed = (val: number) => {
-    if (val === 2) {
+    if (val === 3) {
       this.setState({
         arr: this.state.arr.concat(
           <BoxWrapper
@@ -34,7 +34,7 @@ class Box extends React.Component<BoxProps> {
       });
     }
 
-    if (val === 1) {
+    if (val === 2) {
       this.setState({
         arr: this.state.arr.concat(
           <BoxWrapper
@@ -46,7 +46,7 @@ class Box extends React.Component<BoxProps> {
       });
     }
 
-    if (val === 0) {
+    if (val === 1) {
       this.setState({
         arr: this.state.arr.concat(
           <BoxWrapper
@@ -56,6 +56,10 @@ class Box extends React.Component<BoxProps> {
           />
         ),
       });
+    }
+
+    if (val === 0) {
+      this.setState({ isClick: !this.state.isClick });
     }
   };
 
@@ -105,24 +109,17 @@ class Box extends React.Component<BoxProps> {
           }}
           className="wrapper removable"
         >
-          <button
-            style={{
-              backgroundColor: "#fff",
-              ...buttonProps,
-            }}
-            onClick={() => this.setState({ isClick: !this.state.isClick })}
-          >
-            ?
-          </button>
           <Button
-            width={[0, 0, 0]}
-            height={[14, 14, 14]}
+            width={[0, 0, 0, 0]}
+            height={[14, 14, 14, 14]}
             border="0.5px solid #e4dfdf"
             borderRadius={1}
             fontSize={9}
-            marginRight={[2, 2, 2]}
-            backgroundColor={["#42bfd5", "#42d5bc", "#4287d5"]}
+            marginRight={[2, 2, 2, 2]}
+            backgroundColor={["#fff", "#42bfd5", "#42d5bc", "#4287d5"]}
             buttonPressed={this.buttonPressed}
+            bottonNumber={4}
+            buttonText={["?", "", ""]}
           />
         </div>
         {this.state.arr}
