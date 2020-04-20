@@ -4,7 +4,7 @@ import parse, { domToReact, DomElement } from "html-react-parser";
 
 type HTML_Map = {
   key: string;
-  val: any;
+  val: string;
 };
 
 export type Clear_DOM_Props = {
@@ -60,7 +60,7 @@ export const getClearDomWithoutStyles = (
   for (var elem, i = 0; (elem = elems[i++]); ) {
     arrayOfProps.push({
       key: elem.className,
-      val: elem.attributes[1],
+      val: elem.attributes[1].value,
     });
 
     elem.removeAttribute("style");
@@ -123,19 +123,31 @@ export const domParsing = (html: string, classNamePostfix: number): string => {
   //     }
   //   },
   // };
+
   let postfix = classNamePostfix;
+  let mediator = ["Wrapper", "Block"];
+  let index = 0;
+  let counter = 0;
+
   const optionsParent = {
     replace: ({ attribs, children }: DomElement) => {
       if (!attribs) return;
 
       if (attribs.class === "react-draggable react-draggable-dragged") {
         postfix += 1;
+        counter += 1;
+        if (counter === 1) {
+          index = 0;
+        }
+        if (counter > 1) {
+          index = 1;
+        }
         const tmp = (
-          <div className={`container-${postfix}`}>
+          <div className={`chart${mediator[index]}${postfix}`}>
             {domToReact(children as DomElement[], optionsParent)}
           </div>
         );
-        // classNamePostfix -= 1;
+        counter -= 1;
         return tmp;
       }
     },
