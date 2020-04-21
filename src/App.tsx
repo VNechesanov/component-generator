@@ -11,6 +11,7 @@ class App extends React.Component {
     width: "",
     isShowCanvas: false,
     newDom: "",
+    componentName: "",
   };
 
   handleChange = (e: any, isHeight: boolean = false) => {
@@ -19,6 +20,10 @@ class App extends React.Component {
       return;
     }
     this.setState({ width: e.target.value });
+  };
+
+  handleComponentName = (e: any) => {
+    this.setState({ componentName: e.target.value });
   };
 
   showCanvas = (isShow: boolean) => {
@@ -32,7 +37,13 @@ class App extends React.Component {
     );
 
     if (clearDom.clearDom?.innerHTML) {
-      this.setState({ newDom: domParsing(clearDom.clearDom?.innerHTML, 0) });
+      this.setState({
+        newDom: domParsing(
+          clearDom.clearDom?.innerHTML,
+          0,
+          this.state.componentName
+        ),
+      });
     }
   };
 
@@ -42,6 +53,7 @@ class App extends React.Component {
         <Settings
           handleChange={this.handleChange}
           showCanvas={this.showCanvas}
+          handleComponentName={this.handleComponentName}
         />
         <div className="canvasStyles">
           <Canvas
