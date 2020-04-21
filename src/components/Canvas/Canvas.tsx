@@ -84,9 +84,8 @@ class Canvas extends React.Component<Props> {
               style={{
                 height: height,
                 width: width,
-                background: "#eee",
-                position: "relative",
               }}
+              className="canvasProps"
             >
               {this.state.arr}
             </div>

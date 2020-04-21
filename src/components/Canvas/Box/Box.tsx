@@ -92,9 +92,6 @@ class Box extends React.Component<BoxProps> {
         <div
           style={{
             backgroundColor: color,
-            margin: 0,
-            height: "100%",
-            padding: 0,
           }}
           className="wrapper removable"
         >
