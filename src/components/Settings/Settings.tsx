@@ -5,6 +5,7 @@ import "./Settings.scss";
 type Props = {
   handleChange: Function;
   showCanvas: Function;
+  handleComponentName: Function;
 };
 
 class Settings extends React.Component<Props> {
@@ -24,6 +25,13 @@ class Settings extends React.Component<Props> {
             <input
               type="text"
               onChange={(e) => this.props.handleChange(e, false)}
+            />
+          </div>
+          <div className="inputContainer">
+            <div className="text">input component name:</div>
+            <input
+              type="text"
+              onChange={(e) => this.props.handleComponentName(e)}
             />
           </div>
           <button

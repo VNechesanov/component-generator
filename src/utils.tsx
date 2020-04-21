@@ -72,7 +72,11 @@ export const getClearDomWithoutStyles = (
   };
 };
 
-export const domParsing = (html: string, classNamePostfix: number): string => {
+export const domParsing = (
+  html: string,
+  classNamePostfix: number,
+  componentName: string
+): string => {
   // const thirdLevelChild = {
   //   replace: ({ attribs, children }: any) => {
   //     if (!attribs) return;
@@ -125,7 +129,7 @@ export const domParsing = (html: string, classNamePostfix: number): string => {
   // };
 
   let postfix = classNamePostfix;
-  let mediator = ["Wrapper", "Block"];
+  let mediator = ["BaseWrapper", "LocalWrapper", "Block"];
   let index = 0;
   let counter = 0;
 
@@ -139,11 +143,14 @@ export const domParsing = (html: string, classNamePostfix: number): string => {
         if (counter === 1) {
           index = 0;
         }
-        if (counter > 1) {
+        if (counter === 2) {
           index = 1;
         }
+        if (counter > 2) {
+          index = 2;
+        }
         const tmp = (
-          <div className={`chart${mediator[index]}${postfix}`}>
+          <div className={`${componentName}${mediator[index]}${postfix}`}>
             {domToReact(children as DomElement[], optionsParent)}
           </div>
         );
