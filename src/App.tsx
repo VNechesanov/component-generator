@@ -3,7 +3,7 @@ import React from "react";
 import "./App.scss";
 import Settings from "./components/Settings/Settings";
 import Canvas from "./components/Canvas/Canvas";
-import { getClearDomWithoutStyles, domParsing } from "./utils";
+import { getClearDomWithoutStyles, domParsing, download } from "./utils";
 
 class App extends React.Component {
   state = {
@@ -63,7 +63,27 @@ class App extends React.Component {
             getNewDOM={this.getNewDOM}
           />
         </div>
-        <div className="outputBlock">{this.state.newDom}</div>
+        <div className="outputBlock">
+          {this.state.newDom}
+          <button
+            style={{
+              width: "120px",
+              backgroundColor: "#4287d5",
+              border: "none",
+              color: "#fff",
+              borderRadius: "2px",
+            }}
+            onClick={() =>
+              download(
+                `${this.state.componentName}.tsx`,
+                this.state.newDom,
+                this.state.componentName
+              )
+            }
+          >
+            Download files
+          </button>
+        </div>
       </>
     );
   }
