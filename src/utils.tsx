@@ -129,7 +129,7 @@ export const domParsing = (
   // };
 
   let postfix = classNamePostfix;
-  let mediator = ["Wrapper", "Block"];
+  let mediator = ["BaseWrapper", "LocalWrapper", "Block"];
   let index = 0;
   let counter = 0;
 
@@ -143,8 +143,11 @@ export const domParsing = (
         if (counter === 1) {
           index = 0;
         }
-        if (counter > 1) {
+        if (counter === 2) {
           index = 1;
+        }
+        if (counter > 2) {
+          index = 2;
         }
         const tmp = (
           <div className={`${componentName}${mediator[index]}${postfix}`}>
