@@ -21,7 +21,6 @@ class BoxWrapper extends React.Component<Props> {
     const { width, height, color } = this.props;
     return (
       <Rnd
-        class="Box"
         default={{
           x: this.state.x,
           y: this.state.y,

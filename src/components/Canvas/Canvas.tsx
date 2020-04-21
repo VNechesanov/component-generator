@@ -3,42 +3,21 @@ import ReactDOM from "react-dom";
 
 import "./Canvas.scss";
 import BoxWrapper from "./BoxWrapper/BoxWrapper";
-import { getClearDomWithoutStyles, Clear_DOM_Props } from "../../utils";
 import Button from "./Button/Button";
 
 type Props = {
   height: string;
   width: string;
   isShow: boolean;
+  getNewDOM: Function;
 };
 
-type Res = {
-  key: any;
-  val: any;
-};
+const resultArr: string[] = [];
 
 class Canvas extends React.Component<Props> {
   state = {
     arr: [] as JSX.Element[],
-  };
-
-  clearDom: Clear_DOM_Props = {
-    clearDom: null,
-    stylesProps: [
-      {
-        key: "",
-        val: "",
-      },
-    ],
-  };
-
-  printRoot = () => {
-    const node = ReactDOM.findDOMNode(this);
-    this.clearDom = getClearDomWithoutStyles(
-      new DOMParser().parseFromString((node as Element).innerHTML, "text/html")
-    );
-    console.info(this.clearDom.clearDom);
-    console.info(this.clearDom.stylesProps);
+    html: "",
   };
 
   eventHandler = (e: any, val: number) => {
@@ -111,6 +90,7 @@ class Canvas extends React.Component<Props> {
             >
               {this.state.arr}
             </div>
+            {resultArr}
             <div className="removable">
               <button
                 style={{
@@ -120,7 +100,7 @@ class Canvas extends React.Component<Props> {
                   color: "#fff",
                   borderRadius: "2px",
                 }}
-                onClick={() => this.printRoot()}
+                onClick={() => this.props.getNewDOM(ReactDOM.findDOMNode(this))}
               >
                 print root
               </button>

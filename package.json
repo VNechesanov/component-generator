@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "html-react-parser": "0.10.3",
     "node-sass": "4.13.1",
     "react-rnd": "10.1.8"
   }
