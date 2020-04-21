@@ -102,7 +102,7 @@ class Canvas extends React.Component<Props> {
                 }}
                 onClick={() => this.props.getNewDOM(ReactDOM.findDOMNode(this))}
               >
-                print root
+                show DOM
               </button>
             </div>
           </div>

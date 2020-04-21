@@ -162,3 +162,40 @@ export const domParsing = (
 
   return renderToStaticMarkup(parse(html, optionsParent) as any);
 };
+
+export function download(
+  filename: string,
+  text: string,
+  componentName: string
+) {
+  const replacedString = text.replace(/class/g, "className");
+  let templateString = `
+  import React from 'react';
+  
+  import "${componentName}.scss";
+  
+  class ${componentName} extends React.Component {
+      render() {
+          return(
+              ${replacedString}
+          );
+      }
+  }
+  
+  export default ${componentName};
+  `;
+
+  let element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(templateString)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
