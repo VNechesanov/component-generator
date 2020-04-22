@@ -2,14 +2,14 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import parse, { domToReact, DomElement } from "html-react-parser";
 
-type HTML_Map = {
-  key: string;
-  val: string;
-};
-
 export type Clear_DOM_Props = {
   clearDom: HTMLElement | null;
-  stylesProps: HTML_Map[];
+  stylesProps: any;
+};
+
+export type ParsDomProps = {
+  DOM: string;
+  classes: string[];
 };
 
 export const removeTags = (tagName: string, document: Document): Document => {
@@ -55,13 +55,10 @@ export const getClearDomWithoutStyles = (
   const doc: Document = document;
   const clearDom = getClearDOM(doc);
   const elems = clearDom.getElementsByTagName("div");
-  const arrayOfProps: HTML_Map[] = [];
+  const arrayOfProps: any = [];
 
   for (var elem, i = 0; (elem = elems[i++]); ) {
-    arrayOfProps.push({
-      key: elem.className,
-      val: elem.attributes[1].value,
-    });
+    arrayOfProps.push(elem.attributes[1].value);
 
     elem.removeAttribute("style");
   }
@@ -76,7 +73,7 @@ export const domParsing = (
   html: string,
   classNamePostfix: number,
   componentName: string
-): string => {
+): ParsDomProps => {
   // const thirdLevelChild = {
   //   replace: ({ attribs, children }: any) => {
   //     if (!attribs) return;
@@ -132,12 +129,16 @@ export const domParsing = (
   let mediator = ["BaseWrapper", "LocalWrapper", "Block"];
   let index = 0;
   let counter = 0;
+  const classNameArray: string[] = [];
 
   const optionsParent = {
     replace: ({ attribs, children }: DomElement) => {
       if (!attribs) return;
 
-      if (attribs.class === "react-draggable react-draggable-dragged") {
+      if (
+        attribs.class === "react-draggable react-draggable-dragged" ||
+        attribs.class === "react-draggable"
+      ) {
         postfix += 1;
         counter += 1;
         if (counter === 1) {
@@ -149,6 +150,7 @@ export const domParsing = (
         if (counter > 2) {
           index = 2;
         }
+        classNameArray.push(`${componentName}${mediator[index]}${postfix}`);
         const tmp = (
           <div className={`${componentName}${mediator[index]}${postfix}`}>
             {domToReact(children as DomElement[], optionsParent)}
@@ -160,7 +162,10 @@ export const domParsing = (
     },
   };
 
-  return renderToStaticMarkup(parse(html, optionsParent) as any);
+  return {
+    DOM: renderToStaticMarkup(parse(html, optionsParent) as any),
+    classes: classNameArray,
+  };
 };
 
 export function download(
@@ -169,6 +174,15 @@ export function download(
   componentName: string
 ) {
   const replacedString = text.replace(/class/g, "className");
+  const repeatArray = [];
+
+  for (let i = 0; i < replacedString.length; i++) {
+    var x = replacedString.indexOf("BaseWrapper", i);
+    if (x === -1) continue;
+    i = x;
+    repeatArray.push(x);
+  }
+
   let templateString = `
   import React from 'react';
   
@@ -177,13 +191,46 @@ export function download(
   class ${componentName} extends React.Component {
       render() {
           return(
+           ${repeatArray.length < 2 ? "" : "<>"} 
               ${replacedString}
+           ${repeatArray.length < 2 ? "" : "</>"} 
           );
       }
   }
   
   export default ${componentName};
   `;
+
+  let element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(templateString)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+export function downloadScss(
+  filename: string,
+  stylesArray: string[],
+  classNameArray: string[]
+) {
+  let templateString = "";
+
+  for (let i = 0; i < classNameArray.length; i++) {
+    templateString += `
+    .${classNameArray[i]} {
+      ${stylesArray[i + 1]}
+    }
+
+    `;
+  }
 
   let element = document.createElement("a");
   element.setAttribute(

@@ -94,7 +94,7 @@ class Canvas extends React.Component<Props> {
             <div className="removable">
               <button
                 style={{
-                  width: "120px",
+                  width: "160px",
                   backgroundColor: "#4287d5",
                   border: "none",
                   color: "#fff",
@@ -102,7 +102,7 @@ class Canvas extends React.Component<Props> {
                 }}
                 onClick={() => this.props.getNewDOM(ReactDOM.findDOMNode(this))}
               >
-                show DOM
+                download .tsx and .scss files
               </button>
             </div>
           </div>

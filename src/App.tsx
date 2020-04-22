@@ -3,7 +3,12 @@ import React from "react";
 import "./App.scss";
 import Settings from "./components/Settings/Settings";
 import Canvas from "./components/Canvas/Canvas";
-import { getClearDomWithoutStyles, domParsing, download } from "./utils";
+import {
+  getClearDomWithoutStyles,
+  domParsing,
+  download,
+  downloadScss,
+} from "./utils";
 
 class App extends React.Component {
   state = {
@@ -12,6 +17,7 @@ class App extends React.Component {
     isShowCanvas: false,
     newDom: "",
     componentName: "",
+    styles: [],
   };
 
   handleChange = (e: any, isHeight: boolean = false) => {
@@ -38,12 +44,21 @@ class App extends React.Component {
 
     if (clearDom.clearDom?.innerHTML) {
       this.setState({
-        newDom: domParsing(
-          clearDom.clearDom?.innerHTML,
-          0,
-          this.state.componentName
-        ),
+        styles: clearDom.stylesProps,
       });
+
+      download(
+        `${this.state.componentName}.tsx`,
+        domParsing(clearDom.clearDom?.innerHTML, 0, this.state.componentName)
+          .DOM,
+        this.state.componentName
+      );
+      downloadScss(
+        `${this.state.componentName}.scss`,
+        clearDom.stylesProps,
+        domParsing(clearDom.clearDom?.innerHTML, 0, this.state.componentName)
+          .classes
+      );
     }
   };
 
@@ -62,27 +77,6 @@ class App extends React.Component {
             isShow={this.state.isShowCanvas}
             getNewDOM={this.getNewDOM}
           />
-        </div>
-        <div className="outputBlock">
-          {this.state.newDom}
-          <button
-            style={{
-              width: "120px",
-              backgroundColor: "#4287d5",
-              border: "none",
-              color: "#fff",
-              borderRadius: "2px",
-            }}
-            onClick={() =>
-              download(
-                `${this.state.componentName}.tsx`,
-                this.state.newDom,
-                this.state.componentName
-              )
-            }
-          >
-            Download files
-          </button>
         </div>
       </>
     );
