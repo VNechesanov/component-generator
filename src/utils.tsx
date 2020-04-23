@@ -74,57 +74,6 @@ export const domParsing = (
   classNamePostfix: number,
   componentName: string
 ): ParsDomProps => {
-  // const thirdLevelChild = {
-  //   replace: ({ attribs, children }: any) => {
-  //     if (!attribs) return;
-
-  //     if (attribs.class === "react-draggable react-draggable-dragged") {
-  //       return (
-  //         <div
-  //           className={`
-  //           thirdLevelChild`}
-  //         >
-  //           {domToReact(children)}
-  //         </div>
-  //       );
-  //     }
-  //   },
-  // };
-
-  // const secondLevelChild = {
-  //   replace: ({ attribs, children }: any) => {
-  //     if (!attribs) return;
-
-  //     if (attribs.class === "react-draggable react-draggable-dragged") {
-  //       return (
-  //         <div
-  //           className={`
-  //         secondLevelChild`}
-  //         >
-  //           {domToReact(children, thirdLevelChild)}
-  //         </div>
-  //       );
-  //     }
-  //   },
-  // };
-
-  // const firstLevelChild = {
-  //   replace: ({ attribs, children }: any) => {
-  //     if (!attribs) return;
-
-  //     if (attribs.class === "react-draggable react-draggable-dragged") {
-  //       return (
-  //         <div
-  //           className={`
-  //           firstLevelChild`}
-  //         >
-  //           {domToReact(children, optionsParent)}
-  //         </div>
-  //       );
-  //     }
-  //   },
-  // };
-
   let postfix = classNamePostfix;
   let mediator = ["BaseWrapper", "LocalWrapper", "Block"];
   let index = 0;
@@ -168,7 +117,7 @@ export const domParsing = (
   };
 };
 
-export function download(
+export function downloadTsx(
   filename: string,
   text: string,
   componentName: string
@@ -223,10 +172,20 @@ export function downloadScss(
 ) {
   let templateString = "";
 
+  const newStylesArray: string[] = [];
+  stylesArray.forEach((item: string) => {
+    newStylesArray.push(
+      item.replace(
+        /user-select: auto;|touch-action: none;|display: inline-block;|cursor: move;|max-width: 9.0072e15px;|max-height: 9.0072e15px;|min-width: 68px;|min-height: 16px;|box-sizing: border-box;|flex-shrink: 0;/gi,
+        ""
+      )
+    );
+  });
+
   for (let i = 0; i < classNameArray.length; i++) {
     templateString += `
     .${classNameArray[i]} {
-      ${stylesArray[i + 1]}
+      ${newStylesArray[i + 1]}
     }
 
     `;

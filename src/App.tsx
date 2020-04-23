@@ -6,7 +6,7 @@ import Canvas from "./components/Canvas/Canvas";
 import {
   getClearDomWithoutStyles,
   domParsing,
-  download,
+  downloadTsx,
   downloadScss,
 } from "./utils";
 
@@ -47,12 +47,13 @@ class App extends React.Component {
         styles: clearDom.stylesProps,
       });
 
-      download(
+      downloadTsx(
         `${this.state.componentName}.tsx`,
         domParsing(clearDom.clearDom?.innerHTML, 0, this.state.componentName)
           .DOM,
         this.state.componentName
       );
+
       downloadScss(
         `${this.state.componentName}.scss`,
         clearDom.stylesProps,
