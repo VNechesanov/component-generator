@@ -135,7 +135,7 @@ export function downloadTsx(
   let templateString = `
   import React from 'react';
   
-  import "${componentName}.scss";
+  import "./${componentName}.scss";
   
   class ${componentName} extends React.Component {
       render() {
@@ -183,9 +183,11 @@ export function downloadScss(
   });
 
   for (let i = 0; i < classNameArray.length; i++) {
+    const baseStyleBlock = newStylesArray[1].replace("position: absolute;", "");
+
     templateString += `
     .${classNameArray[i]} {
-      ${newStylesArray[i + 1]}
+      ${i === 0 ? baseStyleBlock : newStylesArray[i + 1]}
     }
 
     `;
