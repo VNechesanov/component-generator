@@ -11,7 +11,7 @@ type ButtonProps = {
   eventHandler?: Function;
   buttonPressed?: Function;
   buttonText?: string[];
-  color?: string;
+  color?: string[];
   bottonNumber: number;
 };
 
@@ -45,7 +45,7 @@ class Button extends React.Component<ButtonProps> {
               backgroundColor: backgroundColor[i],
               display: "flex",
               justifyContent: "center",
-              color: color && color,
+              color: color && color[i],
             }}
             onClick={(e) =>
               this.props.buttonPressed

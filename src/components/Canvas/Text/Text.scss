@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 1px;
+  border-radius: 2px;
+}
+
+.rowWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 10px;
+  color: rgb(19, 18, 18);
+
+  &:nth-child(2) {
+    flex-grow: 1;
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+.textForm input[type="text"] {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  color: #26557a;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  text-align: center;
+}
+
+#close-CSS {
+  background-image: url("./img/Settings.svg");
+  background-size: 15px 15px;
+  background-repeat: no-repeat;
+  height: 15px;
+  width: 15px;
+}

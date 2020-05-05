@@ -1,24 +1,29 @@
 import React from "react";
 import { Rnd } from "react-rnd";
 
-import Box from "../Box/Box";
+import Text from "../Text/Text";
 
 type Props = {
   width: string;
   height: string;
   color: string;
+  textInBox: Function;
 };
 
-class GlobalContainerWrapper extends React.Component<Props> {
+class TextBox extends React.Component<Props> {
   state = {
     width: "100",
-    height: "40",
+    height: "30",
     x: 0,
     y: 0,
   };
 
+  handleChange = (word: string) => {
+    this.props.textInBox(word);
+  };
+
   render() {
-    const { width, height, color } = this.props;
+    const { color } = this.props;
     return (
       <Rnd
         default={{
@@ -27,8 +32,8 @@ class GlobalContainerWrapper extends React.Component<Props> {
           width: this.state.width,
           height: this.state.height,
         }}
-        minWidth={0}
-        minHeight={0}
+        minWidth={68}
+        minHeight={20}
         bounds="parent"
         onDrag={(e: any, { x, y }: any) => {
           this.setState({ x, y });
@@ -48,18 +53,15 @@ class GlobalContainerWrapper extends React.Component<Props> {
           });
         }}
       >
-        <Box
-          x={this.state.x}
-          y={this.state.y}
+        <Text
           width={this.state.width}
           height={this.state.height}
-          externalHeight={height}
-          externalWidth={width}
           color={color}
+          handleChange={this.handleChange}
         />
       </Rnd>
     );
   }
 }
 
-export default GlobalContainerWrapper;
+export default TextBox;
