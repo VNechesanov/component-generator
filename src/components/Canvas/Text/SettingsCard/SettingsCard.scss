@@ -1,0 +1,28 @@
+.settingsInputBlock {
+  display: flex;
+  flex-direction: column;
+  min-width: 95px;
+  height: auto;
+  border: 1px solid #e4dfdf;
+  border-radius: 3px;
+  padding: 10px;
+  background-color: #fff;
+  margin-top: 5px;
+}
+
+.settingsText {
+  font-size: 15px;
+  color: #5c5a5a;
+}
+
+.settingsInputContainer {
+  padding-bottom: 5px;
+}
+
+.settingsForm input[type="text"] {
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  border-bottom: 2px solid #4287d5;
+  outline: none;
+}

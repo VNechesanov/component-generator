@@ -3,6 +3,7 @@ import React from "react";
 import "./Box.scss";
 import Tooltip from "./Tooltip/Tooltip";
 import BoxWrapper from "../BoxWrapper/BoxWrapper";
+import TextBox from "../TextBox/TextBox";
 import Button from "../Button/Button";
 
 type BoxProps = {
@@ -13,15 +14,34 @@ type BoxProps = {
   externalWidth: string;
   externalHeight: string;
   color: string;
+  textHandle: Function;
 };
 
 class Box extends React.Component<BoxProps> {
   state = {
     isClick: false,
     arr: [] as JSX.Element[],
+    text: "",
+  };
+
+  textInBox = (word: string) => {
+    this.props.textHandle(word);
   };
 
   buttonPressed = (val: number) => {
+    if (val === 4) {
+      this.setState({
+        arr: this.state.arr.concat(
+          <TextBox
+            width={this.props.width}
+            height={this.props.height}
+            color="#6C6C6C"
+            textInBox={this.textInBox}
+          />
+        ),
+      });
+    }
+
     if (val === 3) {
       this.setState({
         arr: this.state.arr.concat(
@@ -29,6 +49,7 @@ class Box extends React.Component<BoxProps> {
             width={this.props.width}
             height={this.props.height}
             color="#4287d5"
+            getText={this.textInBox}
           />
         ),
       });
@@ -41,6 +62,7 @@ class Box extends React.Component<BoxProps> {
             width={this.props.width}
             height={this.props.height}
             color="#42d5bc"
+            getText={this.textInBox}
           />
         ),
       });
@@ -53,6 +75,7 @@ class Box extends React.Component<BoxProps> {
             width={this.props.width}
             height={this.props.height}
             color="#42bfd5"
+            getText={this.textInBox}
           />
         ),
       });
@@ -99,16 +122,23 @@ class Box extends React.Component<BoxProps> {
           className="wrapper removable"
         >
           <Button
-            width={[0, 0, 0, 0]}
-            height={[14, 14, 14, 14]}
+            width={[0, 19, 19, 19, 21]}
+            height={[15, 15, 15, 15, 15]}
             border="0.5px solid #e4dfdf"
             borderRadius={1}
-            fontSize={9}
-            marginRight={[2, 2, 2, 2]}
-            backgroundColor={["#fff", "#42bfd5", "#42d5bc", "#4287d5"]}
+            fontSize={8}
+            marginRight={[2, 2, 2, 2, 2]}
+            backgroundColor={[
+              "#fff",
+              "#42bfd5",
+              "#42d5bc",
+              "#4287d5",
+              "#9E9E9E",
+            ]}
             buttonPressed={this.buttonPressed}
-            bottonNumber={4}
-            buttonText={["?", "", ""]}
+            bottonNumber={5}
+            buttonText={["?", "B", "B", "B", `«T»`]}
+            color={["#000", "#fff", "#fff", "#fff", "#fff"]}
           />
         </div>
         {this.state.arr}

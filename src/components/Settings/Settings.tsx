@@ -15,24 +15,30 @@ class Settings extends React.Component<Props> {
         <div className="inputBlock">
           <div className="inputContainer">
             <div className="text">input height:</div>
-            <input
-              type="text"
-              onChange={(e) => this.props.handleChange(e, true)}
-            />
+            <div className="form">
+              <input
+                type="text"
+                onChange={(e) => this.props.handleChange(e, true)}
+              />
+            </div>
           </div>
           <div className="inputContainer">
             <div className="text">input width:</div>
-            <input
-              type="text"
-              onChange={(e) => this.props.handleChange(e, false)}
-            />
+            <div className="form">
+              <input
+                type="text"
+                onChange={(e) => this.props.handleChange(e, false)}
+              />
+            </div>
           </div>
           <div className="inputContainer">
             <div className="text">input component name:</div>
-            <input
-              type="text"
-              onChange={(e) => this.props.handleComponentName(e)}
-            />
+            <div className="form">
+              <input
+                type="text"
+                onChange={(e) => this.props.handleComponentName(e)}
+              />
+            </div>
           </div>
           <button
             style={{

@@ -18,33 +18,14 @@ class Canvas extends React.Component<Props> {
   state = {
     arr: [] as JSX.Element[],
     html: "",
+    textArr: [] as string[],
+  };
+
+  getText = (word: string) => {
+    this.setState({ textArr: this.state.textArr.concat(word) });
   };
 
   eventHandler = (e: any, val: number) => {
-    if (val === 2) {
-      this.setState({
-        arr: this.state.arr.concat(
-          <BoxWrapper
-            width={this.props.width}
-            height={this.props.height}
-            color="#4287d5"
-          />
-        ),
-      });
-    }
-
-    if (val === 1) {
-      this.setState({
-        arr: this.state.arr.concat(
-          <BoxWrapper
-            width={this.props.width}
-            height={this.props.height}
-            color="#42d5bc"
-          />
-        ),
-      });
-    }
-
     if (val === 0) {
       this.setState({
         arr: this.state.arr.concat(
@@ -52,6 +33,7 @@ class Canvas extends React.Component<Props> {
             width={this.props.width}
             height={this.props.height}
             color="#42bfd5"
+            getText={this.getText}
           />
         ),
       });
@@ -67,15 +49,15 @@ class Canvas extends React.Component<Props> {
           <div className="canvasWrapper">
             <div className="buttonWrapper removable">
               <Button
-                width={[120, 120, 120]}
+                width={[120]}
                 border="none"
                 borderRadius={2}
-                marginRight={[5, 5, 0]}
-                backgroundColor={["#42bfd5", "#42d5bc", "#4287d5"]}
+                marginRight={[5]}
+                backgroundColor={["#42bfd5"]}
                 eventHandler={this.eventHandler}
-                color="#fff"
-                buttonText={["add container", "add container", "add container"]}
-                bottonNumber={3}
+                color={["#fff"]}
+                buttonText={["add container"]}
+                bottonNumber={1}
               />
             </div>
 
@@ -105,6 +87,7 @@ class Canvas extends React.Component<Props> {
                 download .tsx and .scss files
               </button>
             </div>
+            {console.info(this.state.textArr)}
           </div>
         )}
       </>

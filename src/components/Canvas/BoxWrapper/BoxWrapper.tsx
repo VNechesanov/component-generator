@@ -7,6 +7,7 @@ type Props = {
   width: string;
   height: string;
   color: string;
+  getText?: Function;
 };
 
 class BoxWrapper extends React.Component<Props> {
@@ -15,6 +16,12 @@ class BoxWrapper extends React.Component<Props> {
     height: "40",
     x: 0,
     y: 0,
+  };
+
+  textHandle = (word: string) => {
+    if (this.props.getText) {
+      this.props.getText(word);
+    }
   };
 
   render() {
@@ -56,6 +63,7 @@ class BoxWrapper extends React.Component<Props> {
           externalHeight={height}
           externalWidth={width}
           color={color}
+          textHandle={this.textHandle}
         />
       </Rnd>
     );
