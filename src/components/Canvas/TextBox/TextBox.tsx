@@ -33,7 +33,7 @@ class TextBox extends React.Component<Props> {
           height: this.state.height,
         }}
         minWidth={68}
-        minHeight={16}
+        minHeight={20}
         bounds="parent"
         onDrag={(e: any, { x, y }: any) => {
           this.setState({ x, y });

@@ -35,7 +35,7 @@ class Box extends React.Component<BoxProps> {
           <TextBox
             width={this.props.width}
             height={this.props.height}
-            color="#6C6C6C"
+            color="#FCF3E1"
             textInBox={this.textInBox}
           />
         ),

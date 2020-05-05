@@ -56,7 +56,9 @@ class Text extends React.Component<BoxProps> {
     textRight: boolean
   ) => {
     this.setState({ textSize: size, isClick: false });
-    this.props.handleChange(this.state.text);
+    if (this.state.text !== "") {
+      this.props.handleChange(this.state.text);
+    }
   };
 
   render() {
@@ -78,14 +80,16 @@ class Text extends React.Component<BoxProps> {
           className="wrapper removable"
         >
           <button
-            id="close-CSS"
             style={{
               border: "none",
-              color: "#fff",
               borderRadius: "2px",
+              width: " 20px",
+              height: "20px",
             }}
             onClick={() => this.setState({ isClick: true })}
-          ></button>
+          >
+            S
+          </button>
           <div className="textForm">
             <input
               type="text"
