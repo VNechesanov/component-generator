@@ -67,6 +67,8 @@ class Text extends React.Component<BoxProps> {
     const boxWidth = parseInt(width);
     const boxHeight = parseInt(height);
 
+    const buttonWidth = 20;
+
     return (
       <>
         <div
@@ -95,7 +97,7 @@ class Text extends React.Component<BoxProps> {
               type="text"
               value={this.state.text}
               style={{
-                width: `${boxWidth - 15}px`,
+                width: `${boxWidth - buttonWidth}px`,
                 height: `${boxHeight}px`,
                 fontSize: `${this.state.textSize}px`,
               }}
