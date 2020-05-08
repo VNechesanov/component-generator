@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import "./Canvas.scss";
 import BoxWrapper from "./BoxWrapper/BoxWrapper";
 import Button from "./Button/Button";
+import { TextBlockProps } from "./Text/Text";
 
 type Props = {
   height: string;
@@ -18,11 +19,27 @@ class Canvas extends React.Component<Props> {
   state = {
     arr: [] as JSX.Element[],
     html: "",
-    textArr: [] as string[],
+    textArr: [] as TextBlockProps[],
   };
 
-  getText = (word: string) => {
-    this.setState({ textArr: this.state.textArr.concat(word) });
+  getText = (word: TextBlockProps) => {
+    const temporaryRepositoryOfWords: TextBlockProps[] = this.state.textArr;
+    if (temporaryRepositoryOfWords.length !== 0) {
+      let isInclude: boolean = false;
+      for (let i = 0; i < temporaryRepositoryOfWords.length; i++) {
+        if (temporaryRepositoryOfWords[i].id === word.id) {
+          temporaryRepositoryOfWords[i] = word;
+          isInclude = true;
+        }
+      }
+      if (isInclude) {
+        this.setState({ textArr: temporaryRepositoryOfWords });
+      } else {
+        this.setState({ textArr: temporaryRepositoryOfWords.concat(word) });
+      }
+    } else {
+      this.setState({ textArr: this.state.textArr.concat(word) });
+    }
   };
 
   eventHandler = (e: any, val: number) => {

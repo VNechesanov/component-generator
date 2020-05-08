@@ -2,6 +2,12 @@ import React from "react";
 
 import "./Text.scss";
 import SettingsCard from "./SettingsCard/SettingsCard";
+import { makeId } from "../../../utils";
+
+export type TextBlockProps = {
+  id: string;
+  word: string;
+};
 
 type BoxProps = {
   width: string;
@@ -15,6 +21,7 @@ class Text extends React.Component<BoxProps> {
     isClick: false,
     focus: false,
     text: "",
+    textId: "",
     textSize: "15",
   };
 
@@ -49,15 +56,23 @@ class Text extends React.Component<BoxProps> {
     }
   };
 
-  handleSettingsCard = (
-    size: string,
-    textLeft: boolean,
-    textCenter: boolean,
-    textRight: boolean
-  ) => {
+  handleSettingsCard = (size: string) => {
     this.setState({ textSize: size, isClick: false });
-    if (this.state.text !== "") {
-      this.props.handleChange(this.state.text);
+    if (this.state.text !== "" && this.state.textId === "") {
+      const tId = makeId(7);
+      const textProps: TextBlockProps = {
+        id: tId,
+        word: this.state.text,
+      };
+      this.setState({ textId: tId });
+      this.props.handleChange(textProps);
+    }
+    if (this.state.text !== "" && this.state.textId !== "") {
+      const textProps: TextBlockProps = {
+        id: this.state.textId,
+        word: this.state.text,
+      };
+      this.props.handleChange(textProps);
     }
   };
 

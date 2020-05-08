@@ -2,6 +2,7 @@ import React from "react";
 import { Rnd } from "react-rnd";
 
 import Box from "../Box/Box";
+import { TextBlockProps } from "../Text/Text";
 
 type Props = {
   width: string;
@@ -18,7 +19,7 @@ class BoxWrapper extends React.Component<Props> {
     y: 0,
   };
 
-  textHandle = (word: string) => {
+  textHandle = (word: TextBlockProps) => {
     if (this.props.getText) {
       this.props.getText(word);
     }
