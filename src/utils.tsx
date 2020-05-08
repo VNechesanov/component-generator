@@ -31,7 +31,15 @@ export const removeClasses = (
   var elementRem = doc.getElementsByClassName(className);
 
   for (let index = elementRem.length - 1; index >= 0; index--) {
-    elementRem[index].parentNode?.removeChild(elementRem[index]);
+    if (
+      elementRem[index].lastElementChild?.innerHTML.includes(
+        '<input type="text"'
+      )
+    ) {
+      continue;
+    } else {
+      elementRem[index].parentNode?.removeChild(elementRem[index]);
+    }
   }
 
   return doc;
@@ -45,8 +53,9 @@ export const getClearDOM = (document: Document): Document => {
     removeClassDoc
   );
   const removeTagsDoc = removeTags("span", removeLibraryClassDoc);
+  const clearDomWithoutTags = removeTags("button", removeTagsDoc);
 
-  return removeTagsDoc;
+  return clearDomWithoutTags;
 };
 
 export const getClearDomWithoutStyles = (
@@ -72,17 +81,34 @@ export const getClearDomWithoutStyles = (
 export const domParsing = (
   html: string,
   classNamePostfix: number,
-  componentName: string
+  componentName: string,
+  text: string[]
 ): ParsDomProps => {
   let postfix = classNamePostfix;
   let mediator = ["BaseWrapper", "LocalWrapper", "Block"];
+  const textBlockStyleMediator = "Text";
   let index = 0;
   let counter = 0;
+  let idx = -1;
   const classNameArray: string[] = [];
 
   const optionsParent = {
     replace: ({ attribs, children }: DomElement) => {
       if (!attribs) return;
+      let tmp: JSX.Element = <></>;
+
+      if (attribs.class === "textForm") {
+        idx += 1;
+
+        classNameArray.push(`${componentName}${textBlockStyleMediator}${idx}`);
+        tmp = (
+          <div className={`${componentName}${textBlockStyleMediator}${idx}`}>
+            {text[idx]}
+          </div>
+        );
+
+        return tmp;
+      }
 
       if (
         attribs.class === "react-draggable react-draggable-dragged" ||
@@ -100,7 +126,7 @@ export const domParsing = (
           index = 2;
         }
         classNameArray.push(`${componentName}${mediator[index]}${postfix}`);
-        const tmp = (
+        tmp = (
           <div className={`${componentName}${mediator[index]}${postfix}`}>
             {domToReact(children as DomElement[], optionsParent)}
           </div>
@@ -176,7 +202,7 @@ export function downloadScss(
   stylesArray.forEach((item: string) => {
     newStylesArray.push(
       item.replace(
-        /user-select: auto;|touch-action: none;|display: inline-block;|cursor: move;|max-width: 9.0072e15px;|max-height: 9.0072e15px;|min-width: 68px;|min-height: 16px;|box-sizing: border-box;|flex-shrink: 0;/gi,
+        /display: flex;|flex-direction: row;|padding: 1px;|border-radius: 2px;|background-color: rgb(252, 243, 225);|margin: 0px;|height: 100%;|user-select: auto;|touch-action: none;|display: inline-block;|cursor: move;|max-width: 9.0072e15px;|max-height: 9.0072e15px;|min-width: 68px;|min-height: 16px;|box-sizing: border-box;|flex-shrink: 0;/gi,
         ""
       )
     );

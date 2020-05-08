@@ -73,13 +73,15 @@ class Text extends React.Component<BoxProps> {
       <>
         <div
           style={{
-            backgroundColor: color,
+            display: "flex",
+            flexDirection: "row",
+            padding: "1px",
+            borderRadius: "2px",
             margin: 0,
             height: "100%",
-            padding: 0,
-            fontSize: `15px`,
+            fontSize: `${this.state.textSize}px`,
           }}
-          className="wrapper removable"
+          className="textForm"
         >
           <button
             style={{
@@ -92,23 +94,22 @@ class Text extends React.Component<BoxProps> {
           >
             S
           </button>
-          <div className="textForm">
-            <input
-              type="text"
-              value={this.state.text}
-              style={{
-                width: `${boxWidth - buttonWidth}px`,
-                height: `${boxHeight}px`,
-                fontSize: `${this.state.textSize}px`,
-              }}
-              onFocus={this._onFocus}
-              onBlur={this._onBlur}
-            />
-          </div>
-          {this.state.focus
-            ? document.addEventListener("keydown", this.logKey)
-            : document.removeEventListener("keydown", this.logKey)}
+          <input
+            type="text"
+            value={this.state.text}
+            style={{
+              width: `${boxWidth - buttonWidth}px`,
+              height: `${boxHeight}px`,
+              fontSize: `${this.state.textSize}px`,
+              backgroundColor: color,
+            }}
+            onFocus={this._onFocus}
+            onBlur={this._onBlur}
+          />
         </div>
+        {this.state.focus
+          ? document.addEventListener("keydown", this.logKey)
+          : document.removeEventListener("keydown", this.logKey)}
         {this.state.isClick && (
           <SettingsCard handleSettingsCard={this.handleSettingsCard} />
         )}

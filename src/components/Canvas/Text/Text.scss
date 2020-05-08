@@ -1,22 +1,3 @@
-.wrapper {
-  display: flex;
-  flex-direction: row;
-  padding: 1px;
-  border-radius: 2px;
-}
-
-.rowWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 10px;
-  color: rgb(19, 18, 18);
-
-  &:nth-child(2) {
-    flex-grow: 1;
-  }
-}
-
 button {
   outline: none;
   border: none;
@@ -25,10 +6,9 @@ button {
 .textForm input[type="text"] {
   display: flex;
   justify-content: center;
-  background-color: transparent;
   color: #26557a;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   outline: none;
   text-align: center;
 }
