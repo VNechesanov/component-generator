@@ -18,6 +18,7 @@ class App extends React.Component {
     newDom: "",
     componentName: "",
     styles: [],
+    textFromBox: [] as string[],
   };
 
   handleChange = (e: any, isHeight: boolean = false) => {
@@ -36,7 +37,9 @@ class App extends React.Component {
     this.setState({ isShowCanvas: isShow });
   };
 
-  getNewDOM = (dom: Element | Text | null) => {
+  getNewDOM = (dom: Element | Text | null, text: string[]) => {
+    this.setState({ textFromBox: this.state.textFromBox.concat(text) });
+
     const node = dom;
     const clearDom = getClearDomWithoutStyles(
       new DOMParser().parseFromString((node as Element).innerHTML, "text/html")
@@ -49,16 +52,24 @@ class App extends React.Component {
 
       downloadTsx(
         `${this.state.componentName}.tsx`,
-        domParsing(clearDom.clearDom?.innerHTML, 0, this.state.componentName)
-          .DOM,
+        domParsing(
+          clearDom.clearDom?.innerHTML,
+          0,
+          this.state.componentName,
+          text
+        ).DOM,
         this.state.componentName
       );
 
       downloadScss(
         `${this.state.componentName}.scss`,
         clearDom.stylesProps,
-        domParsing(clearDom.clearDom?.innerHTML, 0, this.state.componentName)
-          .classes
+        domParsing(
+          clearDom.clearDom?.innerHTML,
+          0,
+          this.state.componentName,
+          text
+        ).classes
       );
     }
   };

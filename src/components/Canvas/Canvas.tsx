@@ -82,7 +82,12 @@ class Canvas extends React.Component<Props> {
                   color: "#fff",
                   borderRadius: "2px",
                 }}
-                onClick={() => this.props.getNewDOM(ReactDOM.findDOMNode(this))}
+                onClick={() =>
+                  this.props.getNewDOM(
+                    ReactDOM.findDOMNode(this),
+                    this.state.textArr
+                  )
+                }
               >
                 download .tsx and .scss files
               </button>
