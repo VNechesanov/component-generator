@@ -1,7 +1,7 @@
 import React from "react";
 import { Rnd } from "react-rnd";
 
-import Text from "../Text/Text";
+import Text, { TextBlockProps } from "../Text/Text";
 
 type Props = {
   width: string;
@@ -18,7 +18,7 @@ class TextBox extends React.Component<Props> {
     y: 0,
   };
 
-  handleChange = (word: string) => {
+  handleChange = (word: TextBlockProps) => {
     this.props.textInBox(word);
   };
 

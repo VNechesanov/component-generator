@@ -4,6 +4,7 @@ import "./Box.scss";
 import Tooltip from "./Tooltip/Tooltip";
 import BoxWrapper from "../BoxWrapper/BoxWrapper";
 import TextBox from "../TextBox/TextBox";
+import { TextBlockProps } from "../Text/Text";
 import Button from "../Button/Button";
 
 type BoxProps = {
@@ -24,7 +25,7 @@ class Box extends React.Component<BoxProps> {
     text: "",
   };
 
-  textInBox = (word: string) => {
+  textInBox = (word: TextBlockProps) => {
     this.props.textHandle(word);
   };
 

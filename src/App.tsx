@@ -9,6 +9,7 @@ import {
   downloadTsx,
   downloadScss,
 } from "./utils";
+import { TextBlockProps } from "./components/Canvas/Text/Text";
 
 class App extends React.Component {
   state = {
@@ -18,7 +19,7 @@ class App extends React.Component {
     newDom: "",
     componentName: "",
     styles: [],
-    textFromBox: [] as string[],
+    textFromBox: [] as TextBlockProps[],
   };
 
   handleChange = (e: any, isHeight: boolean = false) => {
@@ -37,7 +38,7 @@ class App extends React.Component {
     this.setState({ isShowCanvas: isShow });
   };
 
-  getNewDOM = (dom: Element | Text | null, text: string[]) => {
+  getNewDOM = (dom: Element | Text | null, text: TextBlockProps[]) => {
     this.setState({ textFromBox: this.state.textFromBox.concat(text) });
 
     const node = dom;

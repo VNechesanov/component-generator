@@ -1,6 +1,7 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import parse, { domToReact, DomElement } from "html-react-parser";
+import { TextBlockProps } from "./components/Canvas/Text/Text";
 
 export type Clear_DOM_Props = {
   clearDom: HTMLElement | null;
@@ -82,7 +83,7 @@ export const domParsing = (
   html: string,
   classNamePostfix: number,
   componentName: string,
-  text: string[]
+  text: TextBlockProps[]
 ): ParsDomProps => {
   let postfix = classNamePostfix;
   let mediator = ["BaseWrapper", "LocalWrapper", "Block"];
@@ -103,7 +104,7 @@ export const domParsing = (
         classNameArray.push(`${componentName}${textBlockStyleMediator}${idx}`);
         tmp = (
           <div className={`${componentName}${textBlockStyleMediator}${idx}`}>
-            {text[idx]}
+            {text[idx].word}
           </div>
         );
 
@@ -232,4 +233,15 @@ export function downloadScss(
   element.click();
 
   document.body.removeChild(element);
+}
+
+export function makeId(length: number) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
