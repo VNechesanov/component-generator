@@ -25,7 +25,7 @@ class Text extends React.Component<BoxProps> {
     textSize: "15",
   };
 
-  _onBlur = () => {
+  _onBlur = (e: React.FormEvent<HTMLInputElement>) => {
     setTimeout(() => {
       if (this.state.focus) {
         this.setState({
@@ -33,6 +33,23 @@ class Text extends React.Component<BoxProps> {
         });
       }
     }, 0);
+
+    if (e.currentTarget.value !== "" && this.state.textId === "") {
+      const tId = makeId(7);
+      const textProps: TextBlockProps = {
+        id: tId,
+        word: e.currentTarget.value,
+      };
+      this.setState({ textId: tId });
+      this.props.handleChange(textProps);
+    }
+    if (e.currentTarget.value !== "" && this.state.textId !== "") {
+      const textProps: TextBlockProps = {
+        id: this.state.textId,
+        word: e.currentTarget.value,
+      };
+      this.props.handleChange(textProps);
+    }
   };
 
   _onFocus = () => {
@@ -43,7 +60,7 @@ class Text extends React.Component<BoxProps> {
     }
   };
 
-  logKey = (e: any) => {
+  logKey = (e: KeyboardEvent) => {
     if (e.keyCode === 8) {
       let helper = this.state.text.slice(0, this.state.text.length - 1);
       this.setState({ text: helper });
@@ -58,22 +75,6 @@ class Text extends React.Component<BoxProps> {
 
   handleSettingsCard = (size: string) => {
     this.setState({ textSize: size, isClick: false });
-    if (this.state.text !== "" && this.state.textId === "") {
-      const tId = makeId(7);
-      const textProps: TextBlockProps = {
-        id: tId,
-        word: this.state.text,
-      };
-      this.setState({ textId: tId });
-      this.props.handleChange(textProps);
-    }
-    if (this.state.text !== "" && this.state.textId !== "") {
-      const textProps: TextBlockProps = {
-        id: this.state.textId,
-        word: this.state.text,
-      };
-      this.props.handleChange(textProps);
-    }
   };
 
   render() {
@@ -119,7 +120,7 @@ class Text extends React.Component<BoxProps> {
               backgroundColor: color,
             }}
             onFocus={this._onFocus}
-            onBlur={this._onBlur}
+            onBlur={(e) => this._onBlur(e)}
           />
         </div>
         {this.state.focus
