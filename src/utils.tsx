@@ -3,6 +3,21 @@ import { renderToStaticMarkup } from "react-dom/server";
 import parse, { domToReact, DomElement } from "html-react-parser";
 import { TextBlockProps } from "./components/Canvas/Text/Text";
 
+export enum forbiddenButtons {
+  MetaLeft = 91,
+  AltLeft = 18,
+  ControlLeft = 17,
+  CapsLock = 20,
+  Tab = 9,
+  Backquote = 192,
+  MetaRight = 93,
+  ArrowLeft = 37,
+  ArrowRight = 39,
+  ArrowDown = 40,
+  ArrowUp = 38,
+  Enter = 13,
+}
+
 export type Clear_DOM_Props = {
   clearDom: HTMLElement | null;
   stylesProps: any;

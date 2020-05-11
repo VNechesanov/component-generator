@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Text.scss";
 import SettingsCard from "./SettingsCard/SettingsCard";
-import { makeId } from "../../../utils";
+import { makeId, forbiddenButtons } from "../../../utils";
 
 export type TextBlockProps = {
   id: string;
@@ -61,14 +61,30 @@ class Text extends React.Component<BoxProps> {
   };
 
   logKey = (e: KeyboardEvent) => {
+    if (
+      e.keyCode === forbiddenButtons.AltLeft ||
+      e.keyCode === forbiddenButtons.ArrowDown ||
+      e.keyCode === forbiddenButtons.ArrowLeft ||
+      e.keyCode === forbiddenButtons.ArrowRight ||
+      e.keyCode === forbiddenButtons.ArrowUp ||
+      e.keyCode === forbiddenButtons.Backquote ||
+      e.keyCode === forbiddenButtons.CapsLock ||
+      e.keyCode === forbiddenButtons.ControlLeft ||
+      e.keyCode === forbiddenButtons.MetaLeft ||
+      e.keyCode === forbiddenButtons.MetaRight ||
+      e.keyCode === forbiddenButtons.Tab ||
+      e.keyCode === forbiddenButtons.Enter
+    ) {
+      return;
+    }
     if (e.keyCode === 8) {
       let helper = this.state.text.slice(0, this.state.text.length - 1);
       this.setState({ text: helper });
     } else {
       this.setState({ text: this.state.text.concat(e.key) });
     }
-    if (e.keyCode === 13) {
-      const newStr = this.state.text.replace("Enter", "");
+    if (e.keyCode === 16) {
+      const newStr = this.state.text.replace("Shift", "");
       this.setState({ text: newStr });
     }
   };
